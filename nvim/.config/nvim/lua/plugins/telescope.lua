@@ -63,6 +63,11 @@ return {
           git_files = {
             show_untracked = true,
           },
+          live_grep = {
+            additional_args = function()
+              return { '--hidden' }
+            end,
+          },
           buffers = { sort_mru = true, ignore_current_buffer = true },
         },
         extensions = {
