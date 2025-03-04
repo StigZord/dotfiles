@@ -30,3 +30,6 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- jk to escape insert mode
 vim.keymap.set('i', 'jk', '<Esc>', { desc = 'Alternative <Esc>' })
+
+-- Noice keymaps
+vim.keymap.set('n', '<leader>nx', '<cmd>NoiceDismiss<CR>', { desc = 'Dismiss Noice Message' })
