@@ -17,8 +17,16 @@ return {
       views = {
         cmdline_popup = {
           position = {
-            row = '30%',
+            row = 12,
           },
+        },
+        cmdline_popupmenu = {
+          position = {
+            row = 15,
+          },
+        },
+        cmdline_output = {
+          view = 'vsplit',
         },
         hover = {
           size = {
