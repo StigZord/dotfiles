@@ -1,6 +1,13 @@
 return { -- Autocompletion
   'hrsh7th/nvim-cmp',
   event = 'InsertEnter',
+  opts = function(_, opts)
+    opts.sources = opts.sources or {}
+    table.insert(opts.sources, {
+      name = 'lazydev',
+      group_index = 0,
+    })
+  end,
   dependencies = {
     -- Snippet Engine & its associated nvim-cmp source
     {

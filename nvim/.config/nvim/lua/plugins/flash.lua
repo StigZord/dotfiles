@@ -76,7 +76,7 @@ return {
     { "<c-a>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     -- stylua: ignore end
     {
-      '<leader>gd',
+      '<leader>jd',
       mode = { 'n', 'x' },
       function()
         jumpToDefinition(false)
@@ -84,7 +84,7 @@ return {
       desc = 'Jump to diagnostic',
     },
     {
-      '<leader>gD',
+      '<leader>jD',
       mode = { 'n', 'x' },
       function()
         jumpToDefinition(true)
