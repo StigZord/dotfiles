@@ -1,4 +1,4 @@
 # start hyprland
-if uwsm check may-start && uwsm select
-    exec uwsm start hyprland.desktop
+if which uwsm &> /dev/null && uwsm check may-start 
+    exec uwsm start hyprland-uwsm.desktop
 end

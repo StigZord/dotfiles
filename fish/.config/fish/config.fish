@@ -27,5 +27,8 @@ abbr tl 'tmux ls'
 abbr tk 'tmux kill-session -t'
 abbr mux tmuxinator
 
+# Git
+abbr gst 'git status'
+
 zoxide init fish | source
 starship init fish | source

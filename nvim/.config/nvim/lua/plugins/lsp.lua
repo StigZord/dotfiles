@@ -84,10 +84,6 @@ return {
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', { 'n', 'x' })
 
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -125,7 +121,15 @@ return {
             map('<leader>th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
+
+            vim.lsp.inlay_hint.enable(true)
           end
+
+          map('<leader>tv', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
+          end, '[T]oggle [V]irtual Text')
+
+          vim.diagnostic.config { virtual_text = true }
         end,
       })
 
@@ -159,7 +163,7 @@ return {
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
+        rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- Some languages (like typescript) have entire language plugins that can be useful:
@@ -168,6 +172,7 @@ return {
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        eslint_d = {},
         tailwindcss = {},
         lua_ls = {
           -- cmd = { ... },
@@ -206,10 +211,7 @@ return {
 
       ---@diagnostic disable-next-line: missing-fields
       require('mason-lspconfig').setup {
-        ensure_installed = {
-          -- handled by typescript-tools
-          'ts_ls',
-        },
+        ensure_installed = {},
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -217,10 +219,9 @@ return {
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-          ['ts_ls'] = function()
-            -- do nothing, managed by typescript-tools
+            -- require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name, server)
+            vim.lsp.enable(server_name)
           end,
         },
       }
