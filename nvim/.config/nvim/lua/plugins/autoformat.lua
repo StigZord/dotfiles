@@ -40,6 +40,7 @@ return { -- Autoformat
       typescript = { 'prettierd', 'prettier', stop_after_first = true },
       typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       markdown = { 'prettierd', 'prettier', 'mdformat', stop_after_first = true },
+      toml = { 'tombi' },
     },
   },
 }
