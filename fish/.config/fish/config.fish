@@ -16,11 +16,12 @@ fish_add_path -U ~/.local/share/bob/nvim-bin
 
 alias vim='nvim'
 alias vi='nvim'
+alias v='nvim'
 
 # Tmux
 abbr t tmux
-abbr tc 'tmux attach'
-abbr ta 'tmux attach -t'
+abbr ta 'tmux attach'
+abbr tc 'tmux attach -t'
 abbr tad 'tmux attach -d -t'
 abbr ts 'tmux new -s'
 abbr tl 'tmux ls'
