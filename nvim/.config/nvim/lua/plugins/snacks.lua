@@ -94,6 +94,40 @@ return {
     quickfile = { enabled = true },
     scope = { enabled = true },
     statuscolumn = { enabled = true },
+    terminal = {
+      enabled = true,
+      keys = {
+        q = 'hide',
+        b = 'hide',
+        gf = function(self)
+          local f = vim.fn.findfile(vim.fn.expand '<cfile>', '**')
+          if f == '' then
+            Snacks.notify.warn 'No file under cursor'
+          else
+            self:hide()
+            vim.schedule(function()
+              vim.cmd('e ' .. f)
+            end)
+          end
+        end,
+        term_normal = {
+          '<esc>',
+          function(self)
+            self.esc_timer = self.esc_timer or (vim.uv or vim.loop).new_timer()
+            if self.esc_timer:is_active() then
+              self.esc_timer:stop()
+              vim.cmd 'stopinsert'
+            else
+              self.esc_timer:start(200, 0, function() end)
+              return '<esc>'
+            end
+          end,
+          mode = 't',
+          expr = true,
+          desc = 'Double escape to normal mode',
+        },
+      },
+    },
     toggle = { enabled = true },
     words = { enabled = true },
     ---
@@ -209,7 +243,8 @@ return {
     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
-    { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal" },
+    { "<c-/>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = { "n", "t" } },
+    { "<c-_>",      function() Snacks.terminal() end, desc = "Toggle Terminal", mode = { "n", "t" }  },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
     {

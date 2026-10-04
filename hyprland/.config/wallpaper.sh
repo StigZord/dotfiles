@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-WALLPAPER_DIR="$HOME/.config/wallpapers/"
-CURRENT_WALL=$(hyprctl hyprpaper listloaded)
-# Get the name of the focused monitor with hyprctl
-FOCUSED_MONITOR=$(hyprctl monitors -j | jq -r '.[] | select(.focused) | .name')
-# Get a random wallpaper that is not the current one
-WALLPAPER=$(find "$WALLPAPER_DIR" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
+WALLPAPER_DIR="$HOME/.config/wallpapers"
+mapfile -t MONITORS < <(hyprctl monitors -j | jq -r '.[].name')
 
-# Apply the selected wallpaper
-hyprctl hyprpaper reload "$FOCUSED_MONITOR","$WALLPAPER"
+# Pick one random wallpaper
+WALLPAPER=$(find "$WALLPAPER_DIR" -type f | shuf -n 1)
+
+# Apply wallpaper to each monitor
+for MONITOR in "${MONITORS[@]}"; do
+  hyprctl hyprpaper wallpaper "$MONITOR,$WALLPAPER"
+done

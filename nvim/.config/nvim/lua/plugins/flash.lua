@@ -65,6 +65,7 @@ return {
         jump_labels = true,
       },
     },
+    autojump = true,
   },
   keys = {
   -- stylua: ignore start
