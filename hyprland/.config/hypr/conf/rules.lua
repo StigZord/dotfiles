@@ -7,7 +7,7 @@ hl.workspace_rule({ workspace = "9", default_name = "dev", monitor = "eDP-1", pe
 
 hl.window_rule({ name = "float-1password", match = { class = "1Password" }, float = true })
 hl.window_rule({ name = "tag-weave-dev", match = { class = "Weave" }, tag = "dev" })
-hl.window_rule({ match = { class = "dev" }, tag = "dev" })
+hl.window_rule({ match = { class = "dev" }, tag = "dev", workspace = "name:dev silent" })
 hl.window_rule({
 	name = "discord-workspace",
 	match = { class = "discord" },

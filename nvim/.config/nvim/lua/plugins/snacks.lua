@@ -239,7 +239,23 @@ return {
     {"<leader>uh", function() Snacks.toggle.inlay_hints() end, desc = "Toggle inlay_hints"},
 
     -- Other
-    { "<leader>tt",  function() Snacks.toggle() end, desc = "Snacks Toggler" },
+    { "<leader>tt", function() Snacks.toggle() end, desc = "Snacks Toggler" },
+    {
+      "<leader>,",
+      function()
+        Snacks.terminal.toggle('bacon run-long', { win = { position = 'right', width = 0.35, enter = false } })
+      end,
+      desc = 'Toggle Becon',
+      mode = { 'n', 't' },
+    },
+    {
+      "<leader>'",
+      function()
+        Snacks.terminal.toggle('bacon', { win = { position = 'right', width = 0.35, enter = false } })
+      end,
+      desc = 'Toggle Becon',
+      mode = { 'n', 't' },
+    },
     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
     { "<leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename File" },
